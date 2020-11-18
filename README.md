@@ -1,27 +1,30 @@
-## Пример базовго CRUD приложения на Spring, Hibernate, Oracle.
-
-<small>
-Maven + Spring + Hibernate + Oracle XE11 + Tomcat -> CRUD Microservice
-</small>
-
-## An example of a basic CRUD application in Spring, Hibernate, Oracle.
-
-<small>
-<details><summary>Проверка ...</summary>
-
->Запустить и посмотреть, что получилось:
->```
->*Run -> Run -> Edit Configurations -> Add New Configuration -> Tomcat Server -> Local*
->Далее нужно выбрать артефакт для развертывания. IDEA сама даст подсказку
->*Warning: No artifacts marked for deployment.*
->Жмем кнопку *fix* и выбираем ...: *war exploded*.
->Либо можно зайти в *Deployment -> add -> Artifact -> ...: war exploded*.
->```
-</details></small>
-
 <small>
 
-<details><summary>Описание ...</summary>
+## Использование базы данных Oracle в веб-приложении Spring Boot через Hibernate
+
+Maven + Spring + Hibernate + Oracle -> CRUD Microservice
+
+## Use a Oracle database in a Spring Boot Web Application through Hibernate
+
+Прооэкт в стадии разработки ...
+
+### Применение
+
+- Запустите приложение и перейдите по адресу http://localhost:8081/ 
+
+    *(порт 8080 занимает Oracle Apex)*
+
+- В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
+    * POST `http://localhost:8081/addProducts`: добавить продукты 
+        JSON контент:
+        `[{"name":"phone"},
+         {"name":"battery"},
+         {"name":"case"}]`
+         
+    * GET `http://localhost:8081/products`: получить все продукты
+    * DELETE `http://localhost:8081/delete/1`: удалить по индексу 1
+      
+<details><summary>Задача ...</summary>
 
 >Реализовать приложение на базе фреймворка Spring Boot 2 и Java минимум 8 версии. 
 >
