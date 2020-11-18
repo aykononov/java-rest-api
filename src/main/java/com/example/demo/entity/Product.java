@@ -1,8 +1,11 @@
 package com.example.demo.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "PRODUCTS")
 public class Product {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private int id;
     private String name;
 

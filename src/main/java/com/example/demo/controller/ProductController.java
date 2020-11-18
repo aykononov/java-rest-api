@@ -46,11 +46,6 @@ public class ProductController {
     public String deleteProduct(@PathVariable int id) {
         return service.deleteProduct(id);
     }
-/*
-    @PostMapping("/addByName/{name}")
-    public Product addProductByName(@PathVariable String name){
-        return service.addByName(name);
-    }
-*/
+
 }
 

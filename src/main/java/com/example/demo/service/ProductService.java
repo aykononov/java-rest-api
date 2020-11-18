@@ -44,11 +44,4 @@ public class ProductService {
         return repository.save(existingProduct);
     }
 
-/*
-    public Product addByName(String name) {
-        Product add = repository.addByName(name);
-        add.setName(name);
-        return repository.save(add);
-    }
-*/
 }

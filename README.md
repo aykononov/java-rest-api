@@ -17,10 +17,13 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
 - В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
     * POST `http://localhost:8081/addProducts`: добавить продукты 
         JSON контент:
-        `[{"name":"phone"},
-         {"name":"battery"},
-         {"name":"case"}]`
-         
+        ```json
+        [
+         {"id":"1","name":"phone1"},
+         {"id":"2","name":"battery"},  
+         {"id":"3","name":"case"}
+        ]
+         ```
     * GET `http://localhost:8081/products`: получить все продукты
     * DELETE `http://localhost:8081/delete/1`: удалить по индексу 1
       
@@ -44,7 +47,7 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
 >   Приложение должно уметь загружать данные из csv-файла. 
 >   Путь директории с файлами настраивается в конфигурационном файле приложения. 
 >   Пример формат данных csv-файла:
->       product_id;product_name;price_id;price;price_date
+>       product_id; product_name; price_id; price; price_date
 >   В логах должен быть отмечен факт старта обработки файла и результат обработки файла 
 >   с количеством обработанных записей(товаров и цен).
 >   Загрузка файла стартует при появлении файла в указанной директории.
@@ -70,53 +73,31 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
 <details><summary>Скрипты структуры БД ...</summary>
 
 >```sql
+>/* таблица Продукты */
 >DROP TABLE products PURGE;
->/
+>
 >CREATE TABLE products
 >(
->  id INT NOT NULL,
->  name VARCHAR2(128) NOT NULL,
->	PRIMARY KEY (id)
+>  id   INT NOT NULL,
+>  name VARCHAR2(128),
+>  PRIMARY KEY (id)
 >);
->/
+>
+>/* таблица Цены */
 >DROP TABLE prices PURGE;
->/
+>
 >CREATE TABLE prices
 >(
->  id INT NOT NULL,
->  price VARCHAR2(128) NOT NULL,
+>  id    INT NOT NULL,
+>  price VARCHAR2(128),
 >  dates DATE DEFAULT SYSDATE,
 >  PRIMARY KEY (id)
 >);
->/
-> DROP SEQUENCE id_seq;
->/
->CREATE SEQUENCE id_seq
-> MINVALUE 1
-> START WITH 1
-> INCREMENT BY 1;
-> /
-> DROP TRIGGER products_id_bri;
-> /
-> CREATE OR REPLACE TRIGGER products_id_bri
-> BEFORE INSERT ON products
-> REFERENCING NEW AS NEW OLD AS OLD
-> FOR EACH ROW
-> WHEN (new.id IS NULL)
-> BEGIN
-> SELECT id_seq.nextval
-> INTO :new.id
-> FROM dual;
-> END;
-> /
-> INSERT ALL
-> INTO products(NAME) VALUES('phone')
-> INTO products(NAME) VALUES('battery')
-> INTO products(NAME) VALUES('case')
-> SELECT *
-> FROM dual;
-> /
-> -- проверка
-> SELECT * FROM products;
+>
+>/* проверка */
+>SELECT * 
+>  FROM products pd, 
+>       prices   pr 
+> WHERE pd.id  = pr.id;
 >```
 </details></small>
