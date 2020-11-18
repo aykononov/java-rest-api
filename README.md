@@ -19,7 +19,7 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
         JSON контент:
         ```json
         [
-         {"id":"1","name":"phone1"},
+         {"id":"1","name":"phone"},
          {"id":"2","name":"battery"},  
          {"id":"3","name":"case"}
         ]
