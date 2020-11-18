@@ -3,9 +3,9 @@ DROP TABLE products PURGE;
 /
 CREATE TABLE products
 (
-  product_id INT NOT NULL,
-  product_name VARCHAR2(128) NOT NULL,
-	PRIMARY KEY (product_id)
+  id   NUMBER(10,0) NOT NULL,
+  name VARCHAR2(255),
+	PRIMARY KEY (id)
 );
 /
 
@@ -14,14 +14,14 @@ DROP TABLE prices PURGE;
 /
 CREATE TABLE prices
 (
-  price_id INT NOT NULL,
-  price VARCHAR2(128) NOT NULL,
-	price_date DATE DEFAULT SYSDATE,
-	PRIMARY KEY (price_id)
+  id    NUMBER(10,0) NOT NULL,
+  price VARCHAR2(255),
+	dates DATE  DEFAULT SYSDATE,
+	PRIMARY KEY (id)
 );
 /
 /* проверка */
 SELECT * 
   FROM products pd, 
-	     prices pr 
- WHERE pd.product_id = pr.price_id;
+	     prices   pr 
+ WHERE pd.id = pr.id;
