@@ -1,16 +1,10 @@
 package com.example.demo.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +14,10 @@ import javax.persistence.Table;
 public class Product {
     @Id
     //@GeneratedValue
+    @Column(name = "product_id")
     private int id;
+
+    @Column(name = "product_name", nullable = false)
     private String name;
 
     public Integer getId() {
