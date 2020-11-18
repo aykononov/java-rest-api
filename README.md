@@ -101,9 +101,9 @@ Maven + Spring + Hibernate + Oracle XE11 + Tomcat -> CRUD Microservice
 > FOR EACH ROW
 > WHEN (new.id IS NULL)
 > BEGIN
->      SELECT id_seq.nextval
-> 		 INTO :new.id
-> 		 FROM dual;
+> SELECT id_seq.nextval
+> INTO :new.id
+> FROM dual;
 > END;
 > /
 > INSERT ALL
