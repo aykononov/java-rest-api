@@ -26,4 +26,5 @@ public class Prices {
     @DateTimeFormat
     @Column(name = "price_date")
     private Date date;
+
 }
