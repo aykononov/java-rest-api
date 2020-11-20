@@ -6,28 +6,9 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
 
 ## Use a Oracle database in a Spring Boot Web Application through Hibernate
 
-Прооэкт в стадии разработки ...
+Проект в стадии разработки ...
 
-### Применение
-
-- Запустите приложение и перейдите по адресу http://localhost:8081/ 
-
-    *(порт 8080 занимает Oracle Apex)*
-
-- В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
-    * POST `http://localhost:8081/addProducts`: добавить продукты 
-        JSON контент:
-        ```json
-        [
-         {"id":"1","name":"phone"},
-         {"id":"2","name":"battery"},  
-         {"id":"3","name":"case"}
-        ]
-         ```
-    * GET `http://localhost:8081/products`: получить все продукты
-    * DELETE `http://localhost:8081/delete/1`: удалить по индексу 1
-      
-<details><summary>Задача ...</summary>
+### Задание
 
 >Реализовать приложение на базе фреймворка Spring Boot 2 и Java минимум 8 версии. 
 >
@@ -68,21 +49,41 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
 >   - Как часто менялась цена товара. Группировка по дням. Формат - список {"date": "yyyy-mm-dd", "frequency": 6} 
 >   Каждый параметр статистики необходимо запрашивать в отдельном параллельном потоке.
 >```
-</details></small>
+
+### Применение
+
+- Запустите приложение и перейдите по адресу http://localhost:8081/ 
+
+    *(порт 8080 занимает Oracle Apex)*
+
+- В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
+    * POST `http://localhost:8081/addProducts`: добавить продукты 
+        JSON контент:
+        ```json
+        [
+         {"id":"1","name":"phone"},
+         {"id":"2","name":"battery"},  
+         {"id":"3","name":"case"}
+        ]
+         ```
+    * GET `http://localhost:8081/products`: получить все продукты
+    * DELETE `http://localhost:8081/delete/1`: удалить по индексу 1
 
 <details><summary>Скрипты структуры БД ...</summary>
 
+>Приложение автоматически создает структуру в БД, а скрипты на всякий случай...
+>
 >```sql
 >/* таблица Продукты */
 >DROP TABLE products PURGE;
->
+>/
 >CREATE TABLE products
 >(
 >  product_id   NUMBER(10,0) NOT NULL,
 >  product_name VARCHAR2(255),
 >  PRIMARY KEY (product_id)
 >);
->
+>/
 >/* таблица Цены */
 >DROP TABLE prices PURGE;
 >
@@ -93,7 +94,7 @@ Maven + Spring + Hibernate + Oracle -> CRUD Microservice
 >  price_date DATE DEFAULT SYSDATE,
 >  PRIMARY KEY (price_id)
 >);
->
+>/
 >/* проверка */
 >SELECT * 
 >  FROM products pd, 
