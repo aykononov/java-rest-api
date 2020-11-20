@@ -2,7 +2,7 @@
 
 ## Использование базы данных Oracle в веб-приложении Spring Boot через Hibernate
 
-Maven + Spring + Hibernate + Oracle -> CRUD Microservice
+Maven + Spring + Hibernate + Oracle -> CRUD Microservice uses a Database
 
 ## Use a Oracle database in a Spring Boot Web Application through Hibernate
 
