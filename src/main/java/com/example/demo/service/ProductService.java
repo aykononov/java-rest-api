@@ -2,9 +2,18 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.upload.UploadInToDB;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -52,35 +61,14 @@ public class ProductService {
         return repository.save(existingProduct);
     }
 
+/*
     @PostConstruct
-    public List<Product> uploadDB() {
-        ArrayList<Product> products = new ArrayList<Product>();
-        try {
-            // create a reader
-            Reader reader = null;
-            reader = Files.newBufferedReader(Paths.get("d:/gith/products.csv"));
-
-            // create csv bean reader
-            CsvToBean csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(Product.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            // iterate through products
-            for (Product product : (Iterable<Product>) csvToBean) {
-                System.out.println("ID: " + product.getId() + " Name: " + product.getName());
-                products.add(product);
-            }
-
-            // close the reader
-            reader.close();
-
-        } catch (
-                IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return repository.saveAll(products);
+    public List<Product> upload() {
+        UploadInToDB uploadInToDB = new UploadInToDB();
+        return repository.saveAll(uploadInToDB.uploadDB());
     }
+
+ */
+
 }
 
