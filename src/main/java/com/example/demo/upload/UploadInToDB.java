@@ -7,6 +7,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.Reader;
@@ -21,19 +23,25 @@ public class UploadInToDB {
     @Autowired
     private ProductRepository repository;
 
-    @Value("${upload.file.path}")
-    private String path;
+    @Value("${upload.file}")
+    private String file;
+
+    @Value("${upload.dir}")
+    private String dir;
 
     @PostConstruct
-    public List<Product> uploadDB() {
+    public List<Product> uploadDB() throws IOException {
 
-        System.out.println(path);
+        ListFiles lf = new ListFiles();
+        for (String vals : lf.listFilesUsingJavaIO(dir)) {
+             System.out.println(dir + vals);
+        }
 
         ArrayList<Product> products = new ArrayList<Product>();
         try {
-            // create a reader
+             // create a reader
             Reader reader = null;
-            reader = Files.newBufferedReader(Paths.get(path));
+            reader = Files.newBufferedReader(Paths.get(dir + file));
 
             // create csv bean reader
             CsvToBean csvToBean = new CsvToBeanBuilder(reader)

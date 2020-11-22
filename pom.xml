@@ -45,12 +45,6 @@
             <artifactId>ojdbc8</artifactId>
             <scope>runtime</scope>
         </dependency>
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		-->
 
 		<!-- OpenCSV позволяет напрямую сопоставлять поля CSV с объектом Java  -->
 		<dependency>
