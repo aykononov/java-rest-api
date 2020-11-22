@@ -19,14 +19,17 @@ import java.sql.Date;
 public class Prices {
     @Id
     //@GeneratedValue
-    @Column(name = "price_id")
+    @Column(name = "id")
     private int pid;
 
     @Column(nullable = false)
     private String price;
 
     @DateTimeFormat
-    @Column(name = "price_date")
+    @Column(name = "pdate")
     private Date pdate;
+
+    @Column(name = "product_id")
+    private int productId;
 
 }

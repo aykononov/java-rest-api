@@ -17,11 +17,11 @@ public class Product {
     @Id
     //@GeneratedValue
     @CsvBindByName(column = "product_id")
-    @Column(name = "product_id")
+    @Column(name = "id")
     private int id;
 
     @CsvBindByName(column = "product_name")
-    @Column(name = "product_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     public Integer getId() {
