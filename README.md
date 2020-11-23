@@ -79,41 +79,6 @@
 
 <details><summary>Скрипты структуры БД ...</summary>
 
->Приложение автоматически создает структуру в БД, а скрипты на всякий случай...
->
->```sql
->/* таблица Продукты */
->DROP TABLE products PURGE;
->/
->CREATE TABLE products
->(
->  id   NUMBER(10,0) NOT NULL,
->  name VARCHAR2(255),
->  PRIMARY KEY (id)
->);
->/
->/* таблица Цены */
->DROP TABLE prices PURGE;
->
->CREATE TABLE prices
->(
->  id   NUMBER(10,0) NOT NULL,
->  price      VARCHAR2(255),
->  pdate DATE DEFAULT SYSDATE,
->  product_id  NUMBER(10,0) NOT NULL,
->  PRIMARY KEY (id)
->);
->/
->/* проверка */
->SELECT * 
->  FROM products pd, 
->       prices   pr 
-> WHERE pd.id  = pr.product_id;
->```
-</details></small>
-
-<details><summary>Скрипты структуры БД ...</summary>
-
 ```sql
 DROP TABLE products PURGE;
 /
@@ -146,4 +111,4 @@ SELECT *
  WHERE pd.id = pr.product_id(+);
 ```
 
-</details>
+</details></small>
