@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -39,4 +40,9 @@ public class Product {
         this.name = name;
     }
 
+    @OneToMany(targetEntity = Prices.class, cascade = CascadeType.ALL, orphanRemoval = true )
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private List<Prices> prices;
+
 }
+

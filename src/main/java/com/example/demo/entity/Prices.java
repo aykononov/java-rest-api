@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,18 +18,53 @@ import java.sql.Date;
 @Table(name = "PRICES")
 public class Prices {
     @Id
-    //@GeneratedValue
+    @CsvBindByName(column = "price_id")
     @Column(name = "id")
-    private int pid;
+    private int id;
 
-    @Column(nullable = false)
-    private String price;
+    @CsvBindByName(column = "price")
+    @Column(name = "price", nullable = true)
+    private double price;
 
+    @CsvBindByName(column = "product_id")
+    @Column(name = "product_id", nullable = true)
+    private int productId;
+
+    @CsvBindByName(column = "price_date")
     @DateTimeFormat
     @Column(name = "pdate")
     private Date pdate;
 
-    @Column(name = "product_id")
-    private int productId;
+    public int getId() {
+        return this.id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+
+    public Date getPdate() {
+        return this.pdate;
+    }
+
+    public void setPdate(Date pdate) {
+        this.pdate = pdate;
+    }
 }
