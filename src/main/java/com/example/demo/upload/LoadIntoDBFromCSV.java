@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class LoadInDB {
+public class LoadIntoDBFromCSV {
     @Value("${upload.file}")
     private String file;
 

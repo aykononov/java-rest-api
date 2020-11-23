@@ -59,7 +59,6 @@ public class Prices {
         this.productId = productId;
     }
 
-
     public Date getPdate() {
         return this.pdate;
     }

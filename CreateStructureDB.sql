@@ -14,11 +14,14 @@ DROP TABLE prices PURGE;
 /
 CREATE TABLE prices
 (
-  id    NUMBER(10,0) NOT NULL,
-  price NUMBER,
-	pdate DATE  DEFAULT SYSDATE,
-	fk_product_id NUMBER(10,0),
-	PRIMARY KEY (id)
+  id         NUMBER(10,0) NOT NULL,
+  price      NUMBER,
+	pdate      DATE,
+	product_id NUMBER(10,0),
+	PRIMARY KEY (id),
+	CONSTRAINT fk_product_id 
+	FOREIGN KEY (product_id)
+  REFERENCES PRODUCTS (id)
 );
 /
 /* проверка */
@@ -26,7 +29,7 @@ SELECT *
   FROM products pd, 
 	     prices   pr 
  WHERE pd.id = pr.product_id(+);
-
+/
 SELECT pd.name, COUNT(*) AS cnt 
   FROM products pd, 
 	     prices   pr 

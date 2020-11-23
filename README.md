@@ -12,6 +12,7 @@
 - Oracle;
 - Maven.
 
+
 ### Начальные условия.
 
 ```
@@ -61,8 +62,11 @@
 
 ### Применение
 
-- Запустите приложение и перейдите по адресу http://localhost:8081/  
-    `(порт 8080 может использовать Oracle Apex)`
+>Для работы данного примера, можно установить [Oracle Database Express Edition (XE) Download](https://www.oracle.com/database/technologies/xe-downloads.html "Download")
+
+- Запустите приложение и перейдите по URL-адресу:   
+    `http://localhost:8081/`  
+    (application.properties `server.port = 8081`, порт 8080 может использовать Oracle Apex)
 
 - В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
     * POST `http://localhost:8081/addProducts`: добавить продукты 
@@ -80,13 +84,14 @@
 <details><summary>Скрипты структуры БД ...</summary>
 
 ```sql
+/* таблица Продукты */
 DROP TABLE products PURGE;
 /
 CREATE TABLE products
 (
   id   NUMBER(10,0) NOT NULL,
   name VARCHAR2(255),
-	PRIMARY KEY (id)
+  PRIMARY KEY (id)
 );
 /
 
@@ -95,20 +100,27 @@ DROP TABLE prices PURGE;
 /
 CREATE TABLE prices
 (
-  id    NUMBER(10,0) NOT NULL,
-  price NUMBER,
-	pdate DATE  DEFAULT SYSDATE,
-	product_id NUMBER(10,0),
-	PRIMARY KEY (id),
-	CONSTRAINT fk_product_id FOREIGN KEY (PRODUCT_ID)
-  REFERENCES PRODUCTS (ID)
+  id         NUMBER(10,0) NOT NULL,
+  price      NUMBER,
+  pdate      DATE,
+  product_id NUMBER(10,0),
+  PRIMARY KEY (id),
+  CONSTRAINT fk_product_id 
+  FOREIGN KEY (product_id)
+  REFERENCES PRODUCTS (id)
 );
 /
 /* проверка */
 SELECT * 
   FROM products pd, 
-	     prices   pr 
+       prices   pr 
  WHERE pd.id = pr.product_id(+);
+/
+SELECT pd.name, COUNT(*) AS cnt 
+  FROM products pd, 
+       prices   pr 
+ WHERE pd.id = pr.product_id(+)
+ GROUP BY pd.name;
 ```
 
 </details></small>
