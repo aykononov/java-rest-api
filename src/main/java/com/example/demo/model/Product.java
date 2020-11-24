@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -39,10 +38,12 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-
+/*
     @OneToMany(targetEntity = Prices.class, cascade = CascadeType.ALL, orphanRemoval = true )
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private List<Prices> prices;
+
+ */
 
 }
 

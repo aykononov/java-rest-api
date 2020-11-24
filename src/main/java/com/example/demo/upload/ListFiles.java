@@ -10,6 +10,7 @@ public class ListFiles {
      public Set<String> listFilesUsingJavaIO(String dir) {
         return Stream.of(new File(dir).listFiles())
                 .filter(file -> !file.isDirectory())
+                //.filter(file -> !file.isDirectory())
                 .map(File::getName)
                 .collect(Collectors.toSet());
     }

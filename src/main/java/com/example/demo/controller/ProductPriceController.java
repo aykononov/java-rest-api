@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ProductRequest;
-import com.example.demo.entity.Product;
+import com.example.demo.model.Product;
 import com.example.demo.repository.PricesRepository;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;

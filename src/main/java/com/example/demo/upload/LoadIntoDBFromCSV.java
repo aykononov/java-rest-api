@@ -1,7 +1,7 @@
 package com.example.demo.upload;
 
-import com.example.demo.entity.Prices;
-import com.example.demo.entity.Product;
+import com.example.demo.model.Prices;
+import com.example.demo.model.Product;
 import com.example.demo.repository.PricesRepository;
 import com.example.demo.repository.ProductRepository;
 import com.opencsv.bean.CsvToBean;
@@ -20,6 +20,7 @@ import java.util.List;
 
 @Component
 public class LoadIntoDBFromCSV {
+/*
     @Value("${upload.file}")
     private String file;
 
@@ -34,10 +35,12 @@ public class LoadIntoDBFromCSV {
     public List<Prices> loadPriceDB() throws IOException {
 
         ListFiles lf = new ListFiles();
-        for (String file : lf.listFilesUsingJavaIO(dir)) {
-            System.out.println(dir + file);
+        for (String existFile : lf.listFilesUsingJavaIO(dir)) {
+            System.out.println(dir + existFile);
+            if (file.equalsIgnoreCase(existFile)) {
+                System.out.println(file + " = " + existFile);
+            }
         }
-
         ArrayList<Prices> prices = new ArrayList<Prices>();
         try {
             // create a reader
@@ -78,9 +81,13 @@ public class LoadIntoDBFromCSV {
     public List<Product> loadProductDB() throws IOException {
 
         ListFiles lf = new ListFiles();
-        for (String file : lf.listFilesUsingJavaIO(dir)) {
-            System.out.println(dir + file);
+        for (String existFile : lf.listFilesUsingJavaIO(dir)) {
+            System.out.println(dir + existFile);
+            if (file.equalsIgnoreCase(existFile)) {
+                System.out.println(file + " = " + existFile);
+            }
         }
+
 
         ArrayList<Product> products = new ArrayList<Product>();
         try {
@@ -110,4 +117,6 @@ public class LoadIntoDBFromCSV {
         //return products;
         return productRepository.saveAll(products);
     }
+
+ */
 }
