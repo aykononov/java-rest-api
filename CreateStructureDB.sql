@@ -18,10 +18,7 @@ CREATE TABLE prices
   price      NUMBER,
 	pdate      DATE,
 	product_id NUMBER(10,0),
-	PRIMARY KEY (id),
-	CONSTRAINT fk_product_id 
-	FOREIGN KEY (product_id)
-  REFERENCES PRODUCTS (id)
+	PRIMARY KEY (id)
 );
 /
 /* проверка */

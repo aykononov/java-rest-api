@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package demo.model;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;

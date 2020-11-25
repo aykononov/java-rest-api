@@ -1,9 +1,9 @@
-package com.example.demo.controller;
+package demo.controller;
 
-import com.example.demo.dto.ProductRequest;
-import com.example.demo.model.Product;
-import com.example.demo.repository.PricesRepository;
-import com.example.demo.repository.ProductRepository;
+import demo.dto.ProductRequest;
+import demo.model.Product;
+import demo.repository.PricesRepository;
+import demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
