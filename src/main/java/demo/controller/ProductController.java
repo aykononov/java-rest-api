@@ -2,8 +2,11 @@ package demo.controller;
 
 import demo.model.Product;
 import demo.service.ProductService;
+import demo.upload.UploadFromCSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -44,6 +47,12 @@ public class ProductController {
     @DeleteMapping("/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
         return service.deleteProduct(id);
+    }
+
+    @GetMapping("/upload")
+    public void upload () throws IOException {
+        UploadFromCSV uploadFromCSV = new UploadFromCSV();
+        uploadFromCSV.loadIntoDB();
     }
 
  }

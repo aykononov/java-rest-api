@@ -32,3 +32,5 @@ SELECT pd.name, COUNT(*) AS cnt
 	     prices   pr 
  WHERE pd.id = pr.product_id(+)
  GROUP BY pd.name;
+
+SELECT * FROM prices;

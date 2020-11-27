@@ -2,8 +2,11 @@ package demo.service;
 
 import demo.model.Product;
 import demo.repository.ProductRepository;
+import demo.upload.UploadFromCSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -42,8 +45,13 @@ public class ProductService {
         existingProduct.setName(product.getName());
         return repository.save(existingProduct);
     }
-
 /*
+    public void uploadCSV () throws IOException {
+        UploadFromCSV uploadFromCSV = new UploadFromCSV();
+        uploadFromCSV.loadIntoDB();
+    }
+*/
+    /*
     @PostConstruct
     public List<Product> upload() {
         UploadInToDB uploadInToDB = new UploadInToDB();

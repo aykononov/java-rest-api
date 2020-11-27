@@ -42,10 +42,10 @@ public class UploadFromCSV {
         HashMap<Integer,String> logging = new HashMap<>();
 
         if (fin.exists()) {
-            System.out.println("Файл (" + fin.getName() + ") существует, можно грузить в БД: ");
+            System.out.println("Файл (" + fin.getName() + ") существует, будем грузить в БД: ");
             System.out.println(new Timestamp(System.currentTimeMillis()));
 
-            try (FileWriter fileWriter = new FileWriter(dir + "LoadIntoDB.log")) {
+            try (FileWriter fileWriter = new FileWriter(dir + "LoadIntoDB.log",true)) {
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(fin.toString()));
                 //reader = Files.newBufferedReader(Paths.get(dir + file));
@@ -80,8 +80,9 @@ public class UploadFromCSV {
                         .withIgnoreLeadingWhiteSpace(true)
                         .build();
 
-                fileWriter.append("Загрузка " + new Timestamp(System.currentTimeMillis()) + "\n");
+                fileWriter.append("\n" + new Timestamp(System.currentTimeMillis()) + " загрузка в БД...\n");
                 // iterate through Prices
+                int count = 0;
                 for (Prices price : (Iterable<Prices>) csvToBean) {
                     System.out.println("price_id: " + price.getId() +
                                         "\tprice: " + price.getPrice() +
@@ -90,10 +91,11 @@ public class UploadFromCSV {
                                         "\tname: " + logging.get(price.getProductId()));
                     prices.add(price);
                     fileWriter.append(logging.get(price.getProductId()) + "\t" + price.getPrice() + "\n");
-                    fileWriter.flush();
+                    count ++;
                 }
-
                 pricesRepository.saveAll(prices);
+                fileWriter.append("Обработано записей: " + count);
+                fileWriter.flush();
                 // close the reader
                 reader.close();
 
