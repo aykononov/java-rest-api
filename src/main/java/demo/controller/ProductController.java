@@ -4,15 +4,24 @@ import demo.model.Product;
 import demo.service.ProductService;
 import demo.upload.UploadFromCSV;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
 @RestController
 public class ProductController {
     @Autowired
     private ProductService service;
+
+    @Value("${upload.file}")
+    private String file;
+
+    @Value("${upload.dir}")
+    private String dir;
 
     @PostMapping("/addProduct")
     public Product addProduct(@RequestBody Product product) {

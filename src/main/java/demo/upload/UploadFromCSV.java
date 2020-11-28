@@ -35,6 +35,15 @@ public class UploadFromCSV {
     @Autowired
     private PricesRepository pricesRepository;
 
+    public UploadFromCSV () {
+
+    }
+
+    public UploadFromCSV(String dir, String file) {
+        this.dir = dir;
+        this.file = file;
+    }
+
     @PostConstruct
     public void loadIntoDB() throws IOException {
 
