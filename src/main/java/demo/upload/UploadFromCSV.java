@@ -35,6 +35,7 @@ public class UploadFromCSV {
     @Autowired
     private PricesRepository pricesRepository;
 
+
     public UploadFromCSV () {
 
     }
@@ -44,9 +45,9 @@ public class UploadFromCSV {
         this.file = file;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void loadIntoDB() throws IOException {
-
+        System.out.println("Старт загрузки...");
         File fin = new File(dir + file);
         HashMap<Integer,String> logging = new HashMap<>();
 
@@ -75,7 +76,7 @@ public class UploadFromCSV {
                     products.add(product);
                 }
 
-                productRepository.saveAll(products);
+                //productRepository.saveAll(products);
                 reader.close();
 
                 System.out.println("Загрузка таблицы (Prices)...");
@@ -102,16 +103,18 @@ public class UploadFromCSV {
                     fileWriter.append(logging.get(price.getProductId()) + "\t" + price.getPrice() + "\n");
                     count ++;
                 }
-                pricesRepository.saveAll(prices);
-                fileWriter.append("Обработано записей: " + count);
+                //pricesRepository.saveAll(prices);
+                fileWriter.append("Обработано записей: " + count + "\n");
                 fileWriter.flush();
                 // close the reader
                 reader.close();
+                productRepository.saveAll(products);
+                pricesRepository.saveAll(prices);
 
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
-        } else System.out.println("Файл (" + file + ") не найден!!!");
+        } else System.out.println("Файл (" + dir + file + ") не найден!!!");
     }
  }
