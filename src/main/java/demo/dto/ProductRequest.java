@@ -13,7 +13,6 @@ import lombok.ToString;
 public class ProductRequest {
     private Product product;
 
-    //
     public Product getProduct() {
         return getProduct();
     }

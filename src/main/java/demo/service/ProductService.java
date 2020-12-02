@@ -37,27 +37,5 @@ public class ProductService {
         repository.deleteById(id);
         return "Product removed id: " + id;
     }
-
-    public Product updateProduct(Product product) {
-        Product existingProduct = repository.findById(product.getId()).orElse(null);
-        existingProduct.setName(product.getName());
-        return repository.save(existingProduct);
-    }
-
-/*
-    public void uploadCSV () throws IOException {
-        UploadFromCSV uploadFromCSV = new UploadFromCSV();
-        uploadFromCSV.loadIntoDB();
-    }
-*/
-    /*
-    @PostConstruct
-    public List<Product> upload() {
-        UploadInToDB uploadInToDB = new UploadInToDB();
-        return repository.saveAll(uploadInToDB.uploadDB());
-    }
-
- */
-
 }
 

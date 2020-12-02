@@ -2,13 +2,8 @@ package demo.controller;
 
 import demo.model.Product;
 import demo.service.ProductService;
-import demo.upload.UploadFromCSV;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -41,20 +36,9 @@ public class ProductController {
         return service.getProductByName(name);
     }
 
-    @PutMapping("/update")
-    public Product updateProduct(@RequestBody Product product) {
-        return service.updateProduct(product);
-    }
-
     @DeleteMapping("/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
         return service.deleteProduct(id);
     }
 
-    @GetMapping("/upload")
-    public void upload () throws IOException {
-        UploadFromCSV uploadFromCSV = new UploadFromCSV();
-        uploadFromCSV.loadIntoDB();
-    }
-
- }
+}

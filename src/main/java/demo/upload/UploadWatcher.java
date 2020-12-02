@@ -1,4 +1,4 @@
-package demo.service;
+package demo.upload;
 
 
 import com.opencsv.bean.CsvToBean;
@@ -7,21 +7,21 @@ import demo.model.Prices;
 import demo.model.Product;
 import demo.repository.PricesRepository;
 import demo.repository.ProductRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.io.*;
 import java.nio.file.*;
 import java.sql.Timestamp;
 import java.util.*;
 
-@Component
+//@Component
 @Service
-public class WatchService {
+public class UploadWatcher implements CommandLineRunner {
 
     @Value("${upload.file}")
     private String file;
@@ -37,24 +37,16 @@ public class WatchService {
 
     private java.nio.file.WatchService watchService;
 
-    @PostConstruct
-    public void init() throws IOException {
+    //
+    @Override
+    public void run(String... args) throws Exception {
         watchService = FileSystems.getDefault().newWatchService();
         startWatchService();
     }
-/*
-    @PreDestroy
-    public void cleanUp() {
-        try {
-            watchService.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-*/
-    private void startWatchService() {
+
+    public void startWatchService() {
         System.out.println("Старт WatchService...");
-        Map<Integer,String> logging = new HashMap<>();
+/*
         try {
             Path path = Paths.get(dir);
             path.register(watchService,
@@ -65,13 +57,39 @@ public class WatchService {
             while ((key = watchService.take()) != null) {
                 for (WatchEvent<?> event : key.pollEvents()) {
                     //System.out.println(path + ": " + event.kind() + ": " + event.context());
-                    // Грузим только созданные новые файлы!!!
+                    // Грузим только новые созданные файлы!!!
+                    if (event.kind().toString().equals("ENTRY_CREATE") && event.context().toString().equals(file)) {
+                        System.out.println("\nНовый файл: " + event.context().toString());
+                        Uploader uploader = new Uploader(dir, file);
+                        uploader.load();
+                    }
+                }
+                key.reset();
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+
+ */
+
+        try {
+            Path path = Paths.get(dir);
+            path.register(watchService,
+                    StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY);
+            WatchKey key;
+            while ((key = watchService.take()) != null) {
+                for (WatchEvent<?> event : key.pollEvents()) {
+                    //System.out.println(path + ": " + event.kind() + ": " + event.context());
+                    // Грузим только новые созданные файлы!!!
                     if (event.kind().toString().equals("ENTRY_CREATE") && event.context().toString().equals(file)) {
                         System.out.println("\nНовый файл: " + event.context().toString());
                         while (true) {
                             boolean ready = Files.isReadable(Paths.get(dir + file));
                             System.out.println(" готов для чтения: " + ready);
                             if (ready) {
+                                Map<Integer,String> logging = new HashMap<>();
                                 try (FileWriter fileWriter = new FileWriter(dir + "LoadIntoDB.log", true)) {
                                     Reader reader = Files.newBufferedReader(Paths.get(dir + file));
                                     CsvToBean csvToBean = null;
@@ -81,7 +99,7 @@ public class WatchService {
                                             .withType(Product.class)
                                             .withIgnoreLeadingWhiteSpace(true)
                                             .build();
-                                    int count = 0;
+
                                     for (Product product : (Iterable<Product>) csvToBean) {
                                          logging.put(product.getId(), product.getName());
                                          products.add(product);
@@ -96,7 +114,7 @@ public class WatchService {
                                             .withIgnoreLeadingWhiteSpace(true)
                                             .build();
                                     fileWriter.append("\nЛог загрузки в БД - " + new Timestamp(System.currentTimeMillis()) + "\n");
-
+                                    int count = 0;
                                     for (Prices price : (Iterable<Prices>) csvToBean) {
                                          prices.add(price);
                                          fileWriter.append(logging.get(price.getProductId()) + "\t" + price.getPrice() + "\n");
@@ -122,4 +140,5 @@ public class WatchService {
             System.out.println(e.getMessage());
         }
     }
+
 }
