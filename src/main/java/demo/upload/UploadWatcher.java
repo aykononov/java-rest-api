@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.*;
 import java.nio.file.*;
@@ -22,6 +23,12 @@ import java.util.*;
 //@Component
 @Service
 public class UploadWatcher implements CommandLineRunner {
+        // Стартовать после запуска приложения
+        @Override
+        public void run(String... args) throws Exception {
+            watchService = FileSystems.getDefault().newWatchService();
+            startWatchService();
+        }
 
     @Value("${upload.file}")
     private String file;
@@ -36,13 +43,6 @@ public class UploadWatcher implements CommandLineRunner {
     private PricesRepository pricesRepository;
 
     private java.nio.file.WatchService watchService;
-
-    //
-    @Override
-    public void run(String... args) throws Exception {
-        watchService = FileSystems.getDefault().newWatchService();
-        startWatchService();
-    }
 
     public void startWatchService() {
         System.out.println("Старт WatchService...");
@@ -60,18 +60,15 @@ public class UploadWatcher implements CommandLineRunner {
                     // Грузим только новые созданные файлы!!!
                     if (event.kind().toString().equals("ENTRY_CREATE") && event.context().toString().equals(file)) {
                         System.out.println("\nНовый файл: " + event.context().toString());
-                        Uploader uploader = new Uploader(dir, file);
-                        uploader.load();
+
+                        }
                     }
                 }
                 key.reset();
-            }
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
-
- */
-
+*/
         try {
             Path path = Paths.get(dir);
             path.register(watchService,
@@ -102,6 +99,7 @@ public class UploadWatcher implements CommandLineRunner {
 
                                     for (Product product : (Iterable<Product>) csvToBean) {
                                          logging.put(product.getId(), product.getName());
+                                        
                                          products.add(product);
                                     }
                                     productRepository.saveAll(products);
@@ -117,7 +115,7 @@ public class UploadWatcher implements CommandLineRunner {
                                     int count = 0;
                                     for (Prices price : (Iterable<Prices>) csvToBean) {
                                          prices.add(price);
-                                         fileWriter.append(logging.get(price.getProductId()) + "\t" + price.getPrice() + "\n");
+                                        fileWriter.append(logging.get(price.getProductId()) + "\t" + price.getPrice() + "\n");
                                          count++;
                                     }
                                     fileWriter.append("Обработано записей: " + count + "\n");
@@ -139,6 +137,7 @@ public class UploadWatcher implements CommandLineRunner {
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
 }

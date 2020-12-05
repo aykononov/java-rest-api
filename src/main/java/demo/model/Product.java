@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +23,8 @@ public class Product {
     private int id;
 
     @CsvBindByName(column = "product_name")
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
+    //@Column(name = "name", nullable = false)
     private String name;
 
     public Integer getId() {
@@ -32,18 +35,33 @@ public class Product {
         return this.name;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-/*
-    @OneToMany(targetEntity = Prices.class, cascade = CascadeType.ALL, orphanRemoval = true )
+    /*
+        public Integer getId() {
+            return this.id;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+
+    @OneToMany(targetEntity = Prices.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private List<Prices> prices;
 
- */
-
+    */
+    // (+) Одностороння связь @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "product_id")
+    private List<Prices> prices = new ArrayList<>();
 }
 

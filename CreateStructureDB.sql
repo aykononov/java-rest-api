@@ -25,7 +25,8 @@ CREATE TABLE prices
 SELECT * 
   FROM products pd, 
 	     prices   pr 
- WHERE pd.id = pr.product_id(+);
+ WHERE pd.id = pr.product_id(+)
+ ORDER BY pr.id;
 /
 SELECT pd.name, COUNT(*) AS cnt 
   FROM products pd, 

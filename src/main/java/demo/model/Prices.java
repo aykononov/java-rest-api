@@ -26,14 +26,33 @@ public class Prices {
     @Column(name = "price", nullable = true)
     private double price;
 
-    @CsvBindByName(column = "product_id")
-    @Column(name = "product_id", nullable = true)
-    private int productId;
-
     @CsvBindByName(column = "price_date")
     @DateTimeFormat
     @Column(name = "pdate")
     private Date pdate;
+
+
+    @CsvBindByName(column = "product_id")
+    @Column(name = "product_id", nullable = true)
+    private int productId;
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+
+/*
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
     public int getId() {
         return this.id;
@@ -51,14 +70,6 @@ public class Prices {
         this.price = price;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
     public Date getPdate() {
         return this.pdate;
     }
@@ -66,4 +77,5 @@ public class Prices {
     public void setPdate(Date pdate) {
         this.pdate = pdate;
     }
+*/
 }

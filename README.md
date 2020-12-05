@@ -76,7 +76,9 @@
         ]
          ```
     * GET `http://localhost:8081/products`: получить все продукты
-    * DELETE `http://localhost:8081/delete/1`: удалить по индексу 1
+    * GET `http://localhost:8081/product/name=`: найти по имени
+    * GET `http://localhost:8081/product/id=`: найти продукт по индексу  
+    * DELETE `http://localhost:8081/delete/id=`: удалить по индексу
 
 <details><summary>Скрипты структуры БД ...</summary>
 
