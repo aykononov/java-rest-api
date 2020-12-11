@@ -8,7 +8,6 @@ CREATE TABLE products
 	PRIMARY KEY (id)
 );
 /
-
 /* таблица Цены */
 DROP TABLE prices PURGE;
 /
@@ -18,7 +17,9 @@ CREATE TABLE prices
   price      NUMBER,
 	pdate      DATE,
 	product_id NUMBER(10,0),
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	CONSTRAINT FK_PRODUCT_ID FOREIGN KEY (PRODUCT_ID)
+  REFERENCES PRODUCTS (ID)
 );
 /
 /* проверка */
@@ -28,10 +29,4 @@ SELECT *
  WHERE pd.id = pr.product_id(+)
  ORDER BY pr.id;
 /
-SELECT pd.name, COUNT(*) AS cnt 
-  FROM products pd, 
-	     prices   pr 
- WHERE pd.id = pr.product_id(+)
- GROUP BY pd.name;
 
-SELECT * FROM prices;

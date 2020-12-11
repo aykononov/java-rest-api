@@ -12,23 +12,23 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
-    public List<Product> findAllProducts() {
+    @GetMapping("/listProducts")
+    public List<Product> listProducts() {
         return productService.getProducts();
     }
 
-    @GetMapping("/product/id={id}")
+    @GetMapping("/findProductById/id={id}")
     public Product findProductById(@PathVariable int id) {
         return productService.getProductById(id);
     }
 
-    @GetMapping("/product/name={name}")
+    @GetMapping("/findProductByName/name={name}")
     public Product findProductByName(@PathVariable String name) {
         return productService.getProductByName(name);
     }
 
-    @DeleteMapping("/delete/id={id}")
-    public String deleteProduct(@PathVariable int id) {
+    @DeleteMapping("/deleteProductById/id={id}")
+    public String deleteProductById(@PathVariable int id) {
         return productService.deleteProduct(id);
     }
 
@@ -37,15 +37,9 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
-    @PostMapping("/addProducts")
-    public List<Product> addProducts(@RequestBody List<Product> products) {
+    @PostMapping("/loadProducts")
+    public List<Product> loadProducts(@RequestBody List<Product> products) {
         return productService.saveProducts(products);
     }
-/*
-    @PostMapping("/placeProduct")
-    public Product placeProduct(@RequestBody ProductRequest request) {
-        //return productRepository.save(request.getProduct());
-        return productService.save(request.getProduct());
-    }
-*/
+
 }

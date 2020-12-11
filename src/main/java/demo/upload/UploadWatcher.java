@@ -11,9 +11,7 @@ import demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.*;
 import java.nio.file.*;
@@ -23,12 +21,13 @@ import java.util.*;
 //@Component
 @Service
 public class UploadWatcher implements CommandLineRunner {
-        // Стартовать после запуска приложения
-        @Override
-        public void run(String... args) throws Exception {
-            watchService = FileSystems.getDefault().newWatchService();
-            startWatchService();
-        }
+
+    // Стартовать после запуска приложения
+    @Override
+    public void run(String... args) throws Exception {
+        watchService = FileSystems.getDefault().newWatchService();
+        startWatchService();
+    }
 
     @Value("${upload.file}")
     private String file;
@@ -46,29 +45,7 @@ public class UploadWatcher implements CommandLineRunner {
 
     public void startWatchService() {
         System.out.println("Старт WatchService...");
-/*
-        try {
-            Path path = Paths.get(dir);
-            path.register(watchService,
-                    StandardWatchEventKinds.ENTRY_CREATE,
-                    StandardWatchEventKinds.ENTRY_DELETE,
-                    StandardWatchEventKinds.ENTRY_MODIFY);
-            WatchKey key;
-            while ((key = watchService.take()) != null) {
-                for (WatchEvent<?> event : key.pollEvents()) {
-                    //System.out.println(path + ": " + event.kind() + ": " + event.context());
-                    // Грузим только новые созданные файлы!!!
-                    if (event.kind().toString().equals("ENTRY_CREATE") && event.context().toString().equals(file)) {
-                        System.out.println("\nНовый файл: " + event.context().toString());
 
-                        }
-                    }
-                }
-                key.reset();
-        } catch (IOException | InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
-*/
         try {
             Path path = Paths.get(dir);
             path.register(watchService,

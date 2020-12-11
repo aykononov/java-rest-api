@@ -1,84 +1,126 @@
-## Pet-project базового модуля REST API для обслуживания фронта интернет-магазина.
+## springboot-hibernate-oracle-opencsv
 
-### Цель проекта.
-
-Реализовать приложение на базе фреймворка Spring Boot 2 и Java минимум 8 версии с использованием базы данных Oracle через Hibernate. 
+Web приложение на базе фреймворка Spring Boot и Hibernate с использованием базы данных Oracle. 
 
 ### Технологии:
-- Spring Boot;
-- Hibernate;
-- Oracle;
-- Maven.
+<small>
 
-### Начальные условия.
+* Spring Boot - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
+* Spring Web - зависимость включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
+* Spring Data JPA - позволяет работать с SQL с помощью Java Persistence API, используя Spring Data и Hibernate;
+* Lombok - библиотека для сокращения написания стандартного кода на java (геттеры, сеттеры и т.д.);
+* OpenCSV - парсер CSV-файлов;
+* Oracle - используемая БД [Oracle Database Express Edition (XE) download](https://www.oracle.com/database/technologies/xe-downloads.html "https://www.oracle.com/database/technologies/xe-downloads.html");
+* Maven - фреймворк для автоматизации сборки проектов на основе описания их структуры в файлах на языке POM (англ. Project Object Model).
+
+</small>
+
+### Структура таблиц в БД.
 
 ```
-Пример структуры таблиц в БД Oracle.
 1. Таблица товар. Хранит название товара.
    Колонки: id, name.
 2. Таблица цена товара. Хранит цену на товар и дату с которой цена актуальная. 
    По каждому товару может быть несколько цен с разными датами.
    Колонки: id, price, date, product_id.
+```
+Таблицы создаются автоматически в БД при старте приложения.  
+(также приложен файл со скриптами создания необходимых сущностей)
 
-Таблицы должны создаваться автоматически в БД при старте приложения или
- в приложении должен быть приложен файл со скриптом создания необходимых сущностей.
+### Функционал приложения.
 
-Функционал приложения.
-1. Загрузка товаров и цен из csv-файла.
-   Приложение должно уметь загружать данные из csv-файла. 
-   Путь директории с файлами настраивается в конфигурационном файле приложения. 
-   Пример формат данных csv-файла:
+```
+1. Приложение умеет загружать данные из csv-файла. 
+    
+    Путь директории с файлами настраивается в конфигурационном файле приложения. 
+    Загрузка файла стартует при появлении файла в указанной директории.
+    Пример формат данных csv-файла:
 
        product_id; product_name; price_id; price; price_date
 
-   В логах должен быть отмечен факт старта обработки файла и результат обработки файла 
+   В логах отмечается факт старта обработки файла и результат обработки файла 
    с количеством обработанных записей(товаров и цен).
-   Загрузка файла стартует при появлении файла в указанной директории.
 
-2. Получение списка товаров и актуальных цен.
-   Приложение должно предоставлять Rest метод, возвращающий из БД список товаров с актуальными ценами, 
-   на указанный в запросе день.
+2. Приложение предоставляет следующие REST методы.
 
-       GET /products?date=yyyy-mm-dd 
-
-   Формат данных ответа - json. Список {"name": "Товар 1", "price": 100.99} 
-
-3. Получение статистики.
-   Приложение должно предоставлять Rest метод, возвращающий статистику по загруженным товарам и ценам.
-
-       GET /products/statistic 
-
+    POST `http://localhost:8081/loadProducts`: добавить продукты
+    GET `http://localhost:8081/listProducts`: получить все продукты
+    POST `http://localhost:8081/addProduct`: добавить один продукт
+    GET `http://localhost:8081/findProductByName/name=`: найти по имени
+    GET `http://localhost:8081/findProductById/id=`: найти продукт по индексу  
+    DELETE `http://localhost:8081/deleteProductById/id=`: удалить по индексу
+   
    Формат данных ответа - json.
-
-   Параметры статистики:
-   - Количество товаров в БД. Формат - просто цифра.
-   - Как часто менялась цена товара. Группировка по товарам. Формат - список {"name": "Товар 1", "frequency": 2} 
-   - Как часто менялась цена товара. Группировка по дням. Формат - список {"date": "yyyy-mm-dd", "frequency": 6} 
-   Каждый параметр статистики необходимо запрашивать в отдельном параллельном потоке.
 ```
 
 ### Применение
 
->Для работы данного примера, можно установить [Oracle Database Express Edition (XE) Download](https://www.oracle.com/database/technologies/xe-downloads.html "Download")
-
-- Запустите приложение и перейдите по URL-адресу:   
+* Запустите приложение и перейдите по URL-адресу:   
     `http://localhost:8081/`  
-    (application.properties `server.port = 8081`, порт 8080 может использовать Oracle Apex)
-
-- В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
-    * POST `http://localhost:8081/addProducts`: добавить продукты 
-        JSON контент:
-        ```json
-        [
-         {"id":"1","name":"phone"},
-         {"id":"2","name":"battery"},  
-         {"id":"3","name":"case"}
+ 
+* В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
+    
+    POST `http://localhost:8081/loadProducts`: добавить продукты (в теле запроса JSON контент)
+    ```json
+    [
+        {
+            "id": 1,
+            "name": "product1",
+            "prices": [
+                {
+                    "id": 1,
+                    "price": 100.11,
+                    "pdate": "2020-11-30",
+                    "productId": 1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "product2",
+            "prices": [
+                {
+                    "id": 2,
+                    "price": 22.02,
+                    "pdate": "2020-11-30",
+                    "productId": 2
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "product3",
+            "prices": [
+                {
+                    "id": 3,
+                    "price": 3.03,
+                    "pdate": "2020-11-30",
+                    "productId": 3
+                }
+            ]
+        }
+    ]
+     
+    ```
+  GET `http://localhost:8081/listProducts`: получить все продукты
+  POST `http://localhost:8081/addProduct`: добавить один продукт
+  ```json
+     {
+        "id": 4,
+        "name": "product4",
+        "prices": [
+            {
+                "id": 4,
+                "price": 111.11,
+                "pdate": "2020-11-30",
+                "productId": 4
+            }
         ]
-         ```
-    * GET `http://localhost:8081/products`: получить все продукты
-    * GET `http://localhost:8081/product/name=`: найти по имени
-    * GET `http://localhost:8081/product/id=`: найти продукт по индексу  
-    * DELETE `http://localhost:8081/delete/id=`: удалить по индексу
+    }
+  ```
+  GET `http://localhost:8081/findProductByName/name=`: найти по имени
+  GET `http://localhost:8081/findProductById/id=`: найти продукт по индексу  
+  DELETE `http://localhost:8081/deleteProductById/id=`: удалить по индексу
 
 <details><summary>Скрипты структуры БД ...</summary>
 
@@ -93,7 +135,6 @@ CREATE TABLE products
   PRIMARY KEY (id)
 );
 /
-
 /* таблица Цены */
 DROP TABLE prices PURGE;
 /
@@ -103,20 +144,19 @@ CREATE TABLE prices
   price      NUMBER,
   pdate      DATE,
   product_id NUMBER(10,0),
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT FK_PRODUCT_ID FOREIGN KEY (PRODUCT_ID)
+  REFERENCES PRODUCTS (ID)
 );
 /
 /* проверка */
 SELECT * 
   FROM products pd, 
        prices   pr 
- WHERE pd.id = pr.product_id(+);
-/
-SELECT pd.name, COUNT(*) AS cnt 
-  FROM products pd, 
-       prices   pr 
  WHERE pd.id = pr.product_id(+)
- GROUP BY pd.name;
+ ORDER BY pr.id;
+/
+
 ```
 
 </details>

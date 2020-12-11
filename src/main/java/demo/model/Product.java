@@ -35,30 +35,6 @@ public class Product {
         return this.name;
     }
 
-    /*
-        public Integer getId() {
-            return this.id;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-
-
-    @OneToMany(targetEntity = Prices.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private List<Prices> prices;
-
-    */
     // (+) Одностороння связь @OneToMany
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "product_id")
