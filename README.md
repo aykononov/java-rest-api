@@ -60,7 +60,7 @@ Web приложение на базе фреймворка Spring Boot и Hiber
  
 * В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
     
-    POST `http://localhost:8081/loadProducts`: добавить продукты (в теле запроса JSON контент)
+    * POST `http://localhost:8081/loadProducts`: добавить продукты (в теле запроса JSON контент)
     ```json
     [
         {
@@ -102,8 +102,8 @@ Web приложение на базе фреймворка Spring Boot и Hiber
     ]
      
     ```
-  GET `http://localhost:8081/listProducts`: получить все продукты
-  POST `http://localhost:8081/addProduct`: добавить один продукт
+  * GET `http://localhost:8081/listProducts`: получить все продукты
+  * POST `http://localhost:8081/addProduct`: добавить один продукт
   ```json
      {
         "id": 4,
@@ -118,9 +118,9 @@ Web приложение на базе фреймворка Spring Boot и Hiber
         ]
     }
   ```
-  GET `http://localhost:8081/findProductByName/name=`: найти по имени
-  GET `http://localhost:8081/findProductById/id=`: найти продукт по индексу  
-  DELETE `http://localhost:8081/deleteProductById/id=`: удалить по индексу
+  * GET `http://localhost:8081/findProductByName/name=`: найти по имени
+  * GET `http://localhost:8081/findProductById/id=`: найти продукт по индексу  
+  * DELETE `http://localhost:8081/deleteProductById/id=`: удалить по индексу
 
 <details><summary>Скрипты структуры БД ...</summary>
 
