@@ -1,10 +1,14 @@
 package demo.controller;
 
+import demo.model.Price;
 import demo.model.Product;
+import demo.repository.PriceRepository;
 import demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -12,6 +16,9 @@ public class Controller {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    PriceRepository priceRepository;
 
     @GetMapping("/listProducts")
     public List<Product> listProducts() {
@@ -50,4 +57,5 @@ public class Controller {
         productRepository.deleteAll();
         return "Delete products count: " + cnt;
     }
+
 }

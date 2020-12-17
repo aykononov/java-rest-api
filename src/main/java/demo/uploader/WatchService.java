@@ -21,6 +21,8 @@ import java.util.*;
 @Service
 public class WatchService implements CommandLineRunner {
 
+    private java.nio.file.WatchService watchService;
+
     // Стартовать после запуска приложения
     @Override
     public void run(String... args) throws Exception {
@@ -39,8 +41,6 @@ public class WatchService implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
-
-    private java.nio.file.WatchService watchService;
 
     public void startWatchService() {
         System.out.println("Старт WatchService...");

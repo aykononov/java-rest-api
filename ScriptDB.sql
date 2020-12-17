@@ -24,9 +24,9 @@ CREATE TABLE prices
 /
 /* проверка */
 SELECT * 
-  FROM products pd, 
-	     prices   pr 
- WHERE pd.id = pr.product_id(+)
+  FROM products pd
+	JOIN prices   pr
+	  ON pd.id = pr.product_id
  ORDER BY pr.id;
 /
 

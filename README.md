@@ -29,7 +29,6 @@ Web приложение на базе фреймворка Spring Boot и Hiber
 (также приложен файл со скриптами [ScriptDB.sql](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql) 
 для создания необходимых сущностей)
 
-
 <details><summary>Скрипт для создания структуры БД ...</summary>
 
 ```sql
@@ -59,9 +58,9 @@ CREATE TABLE prices
 /
 /* проверка */
 SELECT * 
-  FROM products pd, 
-       prices   pr 
- WHERE pd.id = pr.product_id(+)
+  FROM products pd
+  JOIN prices   pr
+    ON pd.id = pr.product_id
  ORDER BY pr.id;
 /
 
