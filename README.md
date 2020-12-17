@@ -25,7 +25,7 @@ Web приложение на базе фреймворка Spring Boot и Hiber
    По каждому товару может быть несколько цен с разными датами.
    Колонки: id, price, date, product_id.
 ```
-Таблицы создаются автоматически в БД при старте приложения. 
+Таблицы в БД создаются автоматически при старте приложения. 
 [(также приложен файл со скриптами создания необходимых сущностей)](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql)
 
 <details><summary>Скрипт для создания структуры БД ...</summary>
@@ -116,15 +116,19 @@ product_id, product_name, price_id, price, price_date
 
 Данные должны автоматически загрузится в БД и вывести информацию о загрузке в логфайл `LoadIntoDB.log`.
 
+<small>
+
 *Файл можно удалять и копировать заново любое количество раз, приложение будет автоматически загружать в БД и писать в лог.*
+
+</small>
 
 Запустите **POSTMAN** и используйте следующие URL-адреса для вызова методов контроллера и просмотра взаимодействия с базой данных:
 
-* GET `http://localhost:8081/listProducts` - получить все продукты
-* GET `http://localhost:8081/getProductById/id=4` - найти продукт по идентификатору  
-* GET `http://localhost:8081/getProductByName/name=product4` - найти продукт по имени 
-* DELETE `http://localhost:8081/deleteProductById/id=4` - удалить продукт по идентификатору  
-* POST `http://localhost:8081/addProduct` - добавляет один продукт
+* **GET** `http://localhost:8081/listProducts` - получить все продукты
+* **GET** `http://localhost:8081/getProductById/id=4` - найти продукт по идентификатору  
+* **GET** `http://localhost:8081/getProductByName/name=product4` - найти продукт по имени 
+* **DELETE** `http://localhost:8081/deleteProductById/id=4` - удалить продукт по идентификатору  
+* **POST** `http://localhost:8081/addProduct` - добавляет один продукт
 
 <details><summary>в теле запроса JSON контент ...</summary>
 
@@ -145,8 +149,8 @@ product_id, product_name, price_id, price, price_date
 
 </details>
 
-* DELETE `http://localhost:8081/removeAll` - удалить все продукты
-* POST `http://localhost:8081/saveProducts` - добавляет несколько продуктов
+* **DELETE** `http://localhost:8081/removeAll` - удалить все продукты
+* **POST** `http://localhost:8081/saveProducts` - добавляет несколько продуктов
 
 <details><summary>в теле запроса JSON контент ...</summary>
 
@@ -193,4 +197,4 @@ product_id, product_name, price_id, price, price_date
 
 </details>
 
-* GET `http://localhost:8081/listProducts` - получить все продукты  
+* **GET** `http://localhost:8081/listProducts` - получить все продукты  
