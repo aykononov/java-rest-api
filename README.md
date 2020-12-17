@@ -3,6 +3,7 @@
 Web приложение на базе фреймворка Spring Boot и Hibernate с использованием базы данных Oracle. 
 
 ### Технологии:
+
 <small>
 
 * Spring Boot - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
@@ -15,7 +16,7 @@ Web приложение на базе фреймворка Spring Boot и Hiber
 
 </small>
 
-### Структура таблиц в БД.
+### Структура БД.
 
 ```
 1. Таблица товар. Хранит название товара.
@@ -24,105 +25,10 @@ Web приложение на базе фреймворка Spring Boot и Hiber
    По каждому товару может быть несколько цен с разными датами.
    Колонки: id, price, date, product_id.
 ```
-Таблицы создаются автоматически в БД при старте приложения.  
-(также приложен файл со скриптами создания необходимых сущностей)
+Таблицы создаются автоматически в БД при старте приложения. 
+[(также приложен файл со скриптами создания необходимых сущностей)](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql)
 
-### Функционал приложения.
-
-```
-1. Приложение умеет загружать данные из csv-файла. 
-    
-    Путь директории с файлами настраивается в конфигурационном файле приложения. 
-    Загрузка файла стартует при появлении файла в указанной директории.
-    Пример формат данных csv-файла:
-
-       product_id; product_name; price_id; price; price_date
-
-   В логах отмечается факт старта обработки файла и результат обработки файла 
-   с количеством обработанных записей(товаров и цен).
-
-2. Приложение предоставляет следующие REST методы.
-
-    POST http://localhost:8081/loadProducts добавить продукты
-    GET http://localhost:8081/listProducts получить все продукты
-    POST http://localhost:8081/addProduct добавить один продукт
-    GET http://localhost:8081/findProductByName/name= найти по имени
-    GET http://localhost:8081/findProductById/id= найти продукт по индексу  
-    DELETE http://localhost:8081/deleteProductById/id= удалить по индексу
-   
-   Формат данных ответа - json.
-```
-
-### Применение
-
-* Запустите приложение и перейдите по URL-адресу:   
-    `http://localhost:8081/`  
- 
-* В POSTMAN используйте следующие URL-адреса для вызова методов контроллеров и просмотра взаимодействия с базой данных:
-    
-    * POST `http://localhost:8081/loadProducts`: добавить продукты (в теле запроса JSON контент)
-    ```json
-    [
-        {
-            "id": 1,
-            "name": "product1",
-            "prices": [
-                {
-                    "id": 1,
-                    "price": 100.11,
-                    "pdate": "2020-11-30",
-                    "productId": 1
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "name": "product2",
-            "prices": [
-                {
-                    "id": 2,
-                    "price": 22.02,
-                    "pdate": "2020-11-30",
-                    "productId": 2
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "name": "product3",
-            "prices": [
-                {
-                    "id": 3,
-                    "price": 3.03,
-                    "pdate": "2020-11-30",
-                    "productId": 3
-                }
-            ]
-        }
-    ]
-     
-    ```
-  * GET `http://localhost:8081/listProducts`: получить все продукты
-  * POST `http://localhost:8081/addProduct`: добавить один продукт
-  ```json
-     {
-        "id": 4,
-        "name": "product4",
-        "prices": [
-            {
-                "id": 4,
-                "price": 111.11,
-                "pdate": "2020-11-30",
-                "productId": 4
-            }
-        ]
-    }
-  ```
-  * GET `http://localhost:8081/findProductByName/name=`: найти по имени
-  * GET `http://localhost:8081/findProductById/id=`: найти продукт по индексу  
-  * DELETE `http://localhost:8081/deleteProductById/id=`: удалить по индексу
-
-<details><summary>Скрипты структуры БД ...</summary>
+<details><summary>Скрипт для создания структуры БД ...</summary>
 
 ```sql
 /* таблица Продукты */
@@ -158,5 +64,120 @@ SELECT *
 /
 
 ```
+</details>
+
+### Функционал.
+
+#### 1. Приложение умеет автоматически загружать данные из *CSV-файла*. 
+    
+    Путь директории с файлами настраивается в конфигурационном файле приложения:
+    
+        upload.dir = src/main/java/demo/upload/
+    
+    Загрузка файла стартует при появлении нового файла в указанной директории:
+    
+        upload.file = LoadIntoDB.csv
+    
+    Пример формат данных CSV-файла*:
+
+        product_id; product_name; price_id; price; price_date
+
+В логах отмечается факт старта обработки файла и результат с количеством обработанных записей (товаров и цен).
+   
+
+#### 2. Приложение предоставляет следующие REST методы. 
+   ```
+   GET http://localhost:8081/listProducts получить все продукты  
+   GET http://localhost:8081/getProductById/id= найти продукт по идентификатору  
+   GET http://localhost:8081/getProductByName/name= найти продукт по имени  
+   POST http://localhost:8081/saveProducts добавляет несколько продуктов  
+   POST http://localhost:8081/addProduct добавляет один продукт  
+   DELETE http://localhost:8081/deleteProductById/id= удалить продукт по идентификатору  
+   DELETE http://localhost:8081/removeAll - удалить все продукты  
+   ```
+   Формат данных ответа - json.
+
+### Проверка.
+
+Запустите приложение, далее *скопируйте* файл `LoadIntoDB.csv` в директорию `..src/main/java/demo/upload/`
+
+Данные должны автоматически загрузится в БД и вывести информацию о загрузке в логфайл `LoadIntoDB.log`.
+
+*Файл можно удалять и копировать заново любое количество раз, приложение будет автоматически загружать в БД и писать в лог.*
+
+Запустите **POSTMAN** и используйте следующие URL-адреса для вызова методов контроллера и просмотра взаимодействия с базой данных:
+
+* GET `http://localhost:8081/listProducts` - получить все продукты
+* GET `http://localhost:8081/getProductById/id=4` - найти продукт по идентификатору  
+* GET `http://localhost:8081/getProductByName/name=product4` - найти продукт по имени 
+* DELETE `http://localhost:8081/deleteProductById/id=4` - удалить продукт по идентификатору  
+* POST `http://localhost:8081/addProduct` - добавляет один продукт
+
+<details><summary>в теле запроса JSON контент ...</summary>
+
+ ```json
+{
+    "id": 4,
+    "name": "product4",
+    "prices": [
+        {
+            "id": 4,
+            "price": 111.11,
+            "pdate": "2020-12-17",
+            "productId": 4
+        }
+    ]
+}
+```
 
 </details>
+
+* DELETE `http://localhost:8081/removeAll` - удалить все продукты
+* POST `http://localhost:8081/saveProducts` - добавляет несколько продуктов
+
+<details><summary>в теле запроса JSON контент ...</summary>
+
+ ```json
+[
+    {
+        "id": 1,
+        "name": "product1",
+        "prices": [
+            {
+                "id": 1,
+                "price": 100.11,
+                "pdate": "2020-11-30",
+                "productId": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "product2",
+        "prices": [
+            {
+                "id": 2,
+                "price": 22.02,
+                "pdate": "2020-11-30",
+                "productId": 2
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "product3",
+        "prices": [
+            {
+                "id": 3,
+                "price": 3.03,
+                "pdate": "2020-11-30",
+                "productId": 3
+            }
+        ]
+    }
+]     
+ ```
+
+</details>
+
+* GET `http://localhost:8081/listProducts` - получить все продукты  

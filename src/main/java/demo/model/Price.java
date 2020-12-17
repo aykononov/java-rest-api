@@ -16,7 +16,7 @@ import java.sql.Date;
 @ToString
 @Entity
 @Table(name = "PRICES")
-public class Prices {
+public class Price {
     @Id
     @CsvBindByName(column = "price_id")
     @Column(name = "id")

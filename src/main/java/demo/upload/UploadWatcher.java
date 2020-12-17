@@ -3,9 +3,9 @@ package demo.upload;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import demo.model.Prices;
+import demo.model.Price;
 import demo.model.Product;
-import demo.repository.PricesRepository;
+import demo.repository.PriceRepository;
 import demo.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ import java.nio.file.*;
 import java.sql.Timestamp;
 import java.util.*;
 
-//@Component
 @Service
 public class UploadWatcher implements CommandLineRunner {
 
@@ -36,10 +35,10 @@ public class UploadWatcher implements CommandLineRunner {
     private String dir;
 
     @Autowired
-    private ProductRepository productRepository;
+    private PriceRepository priceRepository;
 
     @Autowired
-    private PricesRepository pricesRepository;
+    private ProductRepository productRepository;
 
     private java.nio.file.WatchService watchService;
 
@@ -83,14 +82,14 @@ public class UploadWatcher implements CommandLineRunner {
 
                                     System.out.println("Загрузка таблицы (Prices)...");
                                     reader = Files.newBufferedReader(Paths.get(dir + file));
-                                    List<Prices> prices = new ArrayList<>();
+                                    List<Price> prices = new ArrayList<>();
                                     csvToBean = new CsvToBeanBuilder(reader)
-                                            .withType(Prices.class)
+                                            .withType(Price.class)
                                             .withIgnoreLeadingWhiteSpace(true)
                                             .build();
                                     fileWriter.append("\nЛог загрузки в БД - " + new Timestamp(System.currentTimeMillis()) + "\n");
                                     int count = 0;
-                                    for (Prices price : (Iterable<Prices>) csvToBean) {
+                                    for (Price price : (Iterable<Price>) csvToBean) {
                                          prices.add(price);
                                         fileWriter.append(logging.get(price.getProductId()) + "\t" + price.getPrice() + "\n");
                                          count++;
@@ -98,7 +97,7 @@ public class UploadWatcher implements CommandLineRunner {
                                     fileWriter.append("Обработано записей: " + count + "\n");
                                     fileWriter.flush();
                                     reader.close();
-                                    pricesRepository.saveAll(prices);
+                                    priceRepository.saveAll(prices);
 
                                 } catch (NoSuchElementException | IOException e) {
                                     System.out.println(e.getMessage());

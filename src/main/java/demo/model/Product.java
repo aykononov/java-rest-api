@@ -38,6 +38,6 @@ public class Product {
     // (+) Одностороння связь @OneToMany
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "product_id")
-    private List<Prices> prices = new ArrayList<>();
+    private List<Price> prices = new ArrayList<>();
 }
 
