@@ -26,8 +26,8 @@ Web приложение на базе фреймворка Spring Boot и Hiber
    Колонки: id, price, date, product_id.
 ```
 Таблицы в БД создаются автоматически при старте приложения.  
-(также приложен файл [ScriptDB.sql](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql) 
-со скриптами для создания необходимых сущностей)
+(также приложен файл со скриптами [ScriptDB.sql](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql) 
+для создания необходимых сущностей)
 
 
 <details><summary>Скрипт для создания структуры БД ...</summary>
