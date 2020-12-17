@@ -110,17 +110,28 @@ product_id, product_name, price_id, price, price_date
    ```
    Формат данных ответа - json.
 
+### Сборка исполняемого jar-файла.
+
+Используйте **shell**, перейдите в корневой каталог проекта (*где находится файл pom.xml*) и введите:
+
+    mvn clean package  
+    cd target  
+
 ### Проверка.
 
-Создайте файл для загрузки или возьмите готовый [LoadIntoDB.csv](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/LoadIntoDB.csv "https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/LoadIntoDB.csv")   
+Запустите приложение:  
+    
+    java -jar demo-0.0.1-SNAPSHOT.jar
 
-Запустите приложение и *скопируйте* файл `LoadIntoDB.csv` в директорию `D:/upload/`
+Создайте файл для загрузки или возьмите готовый [LoadIntoDB.csv](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/LoadIntoDB.csv "https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/LoadIntoDB.csv")
+
+Cкопируйте файл `LoadIntoDB.csv` в директорию `D:/upload/`
 
 Данные должны автоматически загрузится в БД и вывести информацию о загрузке в логфайл `LoadIntoDB.log`.
 
 <small>
 
-*Файл можно удалять и копировать заново любое количество раз, приложение будет автоматически загружать в БД и писать в лог.*
+*Файл `LoadIntoDB.csv` можно удалять и копировать заново любое количество раз, приложение будет автоматически загружать в БД и писать в лог.*
 
 </small>
 
