@@ -1,4 +1,4 @@
-package demo.upload;
+package demo.uploader;
 
 
 import com.opencsv.bean.CsvToBean;
@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Service
-public class UploadWatcher implements CommandLineRunner {
+public class WatchService implements CommandLineRunner {
 
     // Стартовать после запуска приложения
     @Override
