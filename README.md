@@ -43,12 +43,12 @@ Web приложение на базе фреймворка Spring Boot и Hiber
 
 2. Приложение предоставляет следующие REST методы.
 
-    POST `http://localhost:8081/loadProducts`: добавить продукты
-    GET `http://localhost:8081/listProducts`: получить все продукты
-    POST `http://localhost:8081/addProduct`: добавить один продукт
-    GET `http://localhost:8081/findProductByName/name=`: найти по имени
-    GET `http://localhost:8081/findProductById/id=`: найти продукт по индексу  
-    DELETE `http://localhost:8081/deleteProductById/id=`: удалить по индексу
+    POST http://localhost:8081/loadProducts добавить продукты
+    GET http://localhost:8081/listProducts получить все продукты
+    POST http://localhost:8081/addProduct добавить один продукт
+    GET http://localhost:8081/findProductByName/name= найти по имени
+    GET http://localhost:8081/findProductById/id= найти продукт по индексу  
+    DELETE http://localhost:8081/deleteProductById/id= удалить по индексу
    
    Формат данных ответа - json.
 ```
