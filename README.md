@@ -6,13 +6,13 @@ Web приложение на базе фреймворка Spring Boot и Hiber
 
 <small>
 
-* Spring Boot - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
-* Spring Web - зависимость включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
-* Spring Data JPA - позволяет работать с SQL с помощью Java Persistence API, используя Spring Data и Hibernate;
-* Lombok - библиотека для сокращения написания стандартного кода на java (геттеры, сеттеры и т.д.);
-* OpenCSV - парсер CSV-файлов;
-* Oracle - используемая БД [Oracle Database Express Edition (XE) download](https://www.oracle.com/database/technologies/xe-downloads.html "https://www.oracle.com/database/technologies/xe-downloads.html");
-* Maven - фреймворк для автоматизации сборки проектов на основе описания их структуры в файлах на языке POM (англ. Project Object Model).
+* **Spring Boot** - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
+* **Spring Web** - зависимость включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
+* **Spring Data JPA** - позволяет работать с SQL с помощью Java Persistence API, используя Spring Data и Hibernate;
+* **Lombok** - библиотека для сокращения написания стандартного кода на java (геттеры, сеттеры и т.д.);
+* **OpenCSV** - парсер CSV-файлов;
+* **Oracle Data Base** - используемая БД [Oracle Database Express Edition (XE) download](https://www.oracle.com/database/technologies/xe-downloads.html "https://www.oracle.com/database/technologies/xe-downloads.html");
+* **Maven** - фреймворк для автоматизации сборки проектов на основе описания их структуры в файлах на языке POM (англ. Project Object Model).
 
 </small>
 
