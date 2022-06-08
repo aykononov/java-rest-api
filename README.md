@@ -1,6 +1,9 @@
-## CRUD - приложение для работы с Базой данных на Java SE, Spring Boot, Hibernate и Oracle Database. 
+## CRUD - приложение для работы с Базой данных.
+### (Java SE, Spring Boot, Hibernate и Oracle Database) 
 
-#### Стек:
+---
+
+### Стек:
 
 <small>
 
