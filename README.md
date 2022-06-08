@@ -1,8 +1,22 @@
-## CRUD - приложение на Spring Boot, Hibernate и Oracle Database. 
+## CRUD - приложение для работы с Базой данных на Java SE, Spring Boot, Hibernate и Oracle Database. 
 
 ### Функционал.
 
-### 1. Приложение умеет автоматически загружать данные из *CSV-файла*.
+### 1. Это CRUD приложение, которое умеет создавать (CREATE), читать (READ), изменять (UPDATE) и удалять (DELETE) информацию в Базе данных.
+REST API предоставляет следующие ендпоинты:
+
+   ```
+   GET http://localhost:8081/listProducts получить все продукты  
+   GET http://localhost:8081/getProductById/id= найти продукт по идентификатору  
+   GET http://localhost:8081/getProductByName/name= найти продукт по имени  
+   POST http://localhost:8081/saveProducts добавляет несколько продуктов  
+   POST http://localhost:8081/addProduct добавляет один продукт  
+   DELETE http://localhost:8081/deleteProductById/id= удалить продукт по идентификатору  
+   DELETE http://localhost:8081/removeAll - удалить все продукты  
+   ```
+_Формат данных ответа в json._
+
+### 2. Приложение умеет автоматически загружать данные из *CSV-файла*.
 
 Путь директории с файлами настраивается в конфигурационном файле приложения:
 
@@ -27,23 +41,9 @@ product_id, product_name, price_id, price, price_date
 ```
 </details>
 
-### 2. Приложение умеет вести логирование.
+### 3. Приложение умеет вести логирование.
 
 В логфайле `LoadIntoDB.log` отмечается факт старта обработки файла и результат с количеством обработанных записей (товаров и цен).
-
-
-### 3. Приложение предоставляет следующие ендпоинты (REST методы).
-
-   ```
-   GET http://localhost:8081/listProducts получить все продукты  
-   GET http://localhost:8081/getProductById/id= найти продукт по идентификатору  
-   GET http://localhost:8081/getProductByName/name= найти продукт по имени  
-   POST http://localhost:8081/saveProducts добавляет несколько продуктов  
-   POST http://localhost:8081/addProduct добавляет один продукт  
-   DELETE http://localhost:8081/deleteProductById/id= удалить продукт по идентификатору  
-   DELETE http://localhost:8081/removeAll - удалить все продукты  
-   ```
-Формат данных ответа в json.
 
 ### Стек:
 
@@ -62,7 +62,7 @@ product_id, product_name, price_id, price, price_date
 
 ### Хранение данных.
 
-Структура.
+Структура таблиц.
 
 ```
 1. Таблица товар. Хранит название товара.
@@ -71,9 +71,8 @@ product_id, product_name, price_id, price, price_date
    По каждому товару может быть несколько цен с разными датами.
    Колонки: id, price, date, product_id.
 ```
-Таблицы в БД создаются автоматически при старте приложения.  
-(также приложен файл со скриптами [ScriptDB.sql](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql) 
-для создания необходимых сущностей)
+
+Таблицы в БД создаются автоматически при старте приложения.
 
 <details><summary>Скрипт для создания структуры БД ...</summary>
 
@@ -112,6 +111,9 @@ SELECT *
 
 ```
 </details>
+
+_Также прилагаю файл со скриптами для создания необходимых сущностей._ [ScriptDB.sql](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql)
+
 
 ### Сборка исполняемого jar-файла.
 
