@@ -1,6 +1,6 @@
 ## springboot-hibernate-oracle-opencsv
 
-Web приложение на базе фреймворка Spring Boot и Hibernate с использованием базы данных Oracle. 
+CRUD - приложение на Spring Boot, Hibernate и Oracle Database. 
 
 ### Технологии:
 
