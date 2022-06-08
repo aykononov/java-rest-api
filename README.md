@@ -1,8 +1,50 @@
-## springboot-hibernate-oracle-opencsv
+## CRUD - приложение на Spring Boot, Hibernate и Oracle Database. 
 
-CRUD - приложение на Spring Boot, Hibernate и Oracle Database. 
+### Функционал.
 
-### Технологии:
+### 1. Приложение умеет автоматически загружать данные из *CSV-файла*.
+
+Путь директории с файлами настраивается в конфигурационном файле приложения:
+
+        upload.dir = D:/upload/
+
+Загрузка файла стартует при появлении нового файла в указанной директории:
+
+        upload.file = LoadIntoDB.csv
+
+<details><summary>Пример формата данных CSV-файла ...</summary>
+
+```csv
+product_id, product_name, price_id, price, price_date
+1,product1,1,100.11,2020-11-30
+2,product2,2,22.02,2020-11-30
+3,product3,3,3.03,2020-11-30
+4,product4,4,100.01,2020-11-30
+1,product1,5,111.01,2020-12-01
+2,product2,6,22.22,2020-12-01
+3,product3,7,3.33,2020-12-01
+4,product4,8,100.10,2020-12-01
+```
+</details>
+
+### 2. Приложение ведет огирование
+
+В логфайле `LoadIntoDB.log` отмечается факт старта обработки файла и результат с количеством обработанных записей (товаров и цен).
+
+
+### 3. Приложение предоставляет следующие REST методы.
+   ```
+   GET http://localhost:8081/listProducts получить все продукты  
+   GET http://localhost:8081/getProductById/id= найти продукт по идентификатору  
+   GET http://localhost:8081/getProductByName/name= найти продукт по имени  
+   POST http://localhost:8081/saveProducts добавляет несколько продуктов  
+   POST http://localhost:8081/addProduct добавляет один продукт  
+   DELETE http://localhost:8081/deleteProductById/id= удалить продукт по идентификатору  
+   DELETE http://localhost:8081/removeAll - удалить все продукты  
+   ```
+Формат данных ответа в json.
+
+### Стек:
 
 <small>
 
@@ -16,7 +58,9 @@ CRUD - приложение на Spring Boot, Hibernate и Oracle Database.
 
 </small>
 
-### Структура БД.
+### Хранение данных.
+
+Структура.
 
 ```
 1. Таблица товар. Хранит название товара.
@@ -67,48 +111,6 @@ SELECT *
 ```
 </details>
 
-### Функционал.
-
-#### 1. Приложение умеет автоматически загружать данные из *CSV-файла*. 
-    
-   Путь директории с файлами настраивается в конфигурационном файле приложения:
-    
-        upload.dir = D:/upload/
-    
-   Загрузка файла стартует при появлении нового файла в указанной директории:
-    
-        upload.file = LoadIntoDB.csv
-   
-<details><summary>Пример формата данных CSV-файла ...</summary>
-
-```csv
-product_id, product_name, price_id, price, price_date
-1,product1,1,100.11,2020-11-30
-2,product2,2,22.02,2020-11-30
-3,product3,3,3.03,2020-11-30
-4,product4,4,100.01,2020-11-30
-1,product1,5,111.01,2020-12-01
-2,product2,6,22.22,2020-12-01
-3,product3,7,3.33,2020-12-01
-4,product4,8,100.10,2020-12-01
-```
-</details>
-
-В логфайле `LoadIntoDB.log` отмечается факт старта обработки файла и результат с количеством обработанных записей (товаров и цен).
-   
-
-#### 2. Приложение предоставляет следующие REST методы. 
-   ```
-   GET http://localhost:8081/listProducts получить все продукты  
-   GET http://localhost:8081/getProductById/id= найти продукт по идентификатору  
-   GET http://localhost:8081/getProductByName/name= найти продукт по имени  
-   POST http://localhost:8081/saveProducts добавляет несколько продуктов  
-   POST http://localhost:8081/addProduct добавляет один продукт  
-   DELETE http://localhost:8081/deleteProductById/id= удалить продукт по идентификатору  
-   DELETE http://localhost:8081/removeAll - удалить все продукты  
-   ```
-   Формат данных ответа - json.
-
 ### Сборка исполняемого jar-файла.
 
 Используйте **shell**, перейдите в корневой каталог проекта (*где находится файл pom.xml*) и введите:
@@ -116,9 +118,9 @@ product_id, product_name, price_id, price, price_date
     mvn clean package  
     cd target  
 
-### Проверка.
+### Запуск приложения.
 
-Запустите приложение:  
+В командной строке выполните команду:  
     
     java -jar demo-0.0.1-SNAPSHOT.jar
 
@@ -142,9 +144,9 @@ Cкопируйте файл `LoadIntoDB.csv` в директорию `D:/upload
 * **DELETE** `http://localhost:8081/deleteProductById/id=4` - удалить продукт по идентификатору  
 * **POST** `http://localhost:8081/addProduct` - добавляет один продукт
 
-<details><summary>в теле запроса JSON контент ...</summary>
+<details><summary>тело запроса (JSON контент) ...</summary>
 
- ```json
+```json
 {
     "id": 4,
     "name": "product4",
@@ -164,9 +166,9 @@ Cкопируйте файл `LoadIntoDB.csv` в директорию `D:/upload
 * **DELETE** `http://localhost:8081/removeAll` - удалить все продукты
 * **POST** `http://localhost:8081/saveProducts` - добавляет несколько продуктов
 
-<details><summary>в теле запроса JSON контент ...</summary>
+<details><summary>тело запроса (JSON контент) ...</summary>
 
- ```json
+```json
 [
     {
         "id": 1,
