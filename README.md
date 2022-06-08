@@ -27,12 +27,13 @@ product_id, product_name, price_id, price, price_date
 ```
 </details>
 
-### 2. Приложение ведет огирование
+### 2. Приложение умеет вести логирование.
 
 В логфайле `LoadIntoDB.log` отмечается факт старта обработки файла и результат с количеством обработанных записей (товаров и цен).
 
 
-### 3. Приложение предоставляет следующие REST методы.
+### 3. Приложение предоставляет следующие ендпоинты (REST методы).
+
    ```
    GET http://localhost:8081/listProducts получить все продукты  
    GET http://localhost:8081/getProductById/id= найти продукт по идентификатору  
@@ -48,8 +49,9 @@ product_id, product_name, price_id, price, price_date
 
 <small>
 
+ * **Java SE 11** - Платформа Java, стандартная версия 11 [Java SE 11 Archive Downloads](https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html "https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html");
  * **Spring Boot** - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
- * **Spring Web** - зависимость включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
+ * **Spring Web** - включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
  * **Spring Data JPA** - позволяет работать с SQL с помощью Java Persistence API, используя Spring Data и Hibernate;
  * **Lombok** - библиотека для сокращения написания стандартного кода на java (геттеры, сеттеры и т.д.);
  * **OpenCSV** - парсер CSV-файлов;
