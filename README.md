@@ -1,9 +1,28 @@
 ## CRUD - приложение для работы с Базой данных на Java SE, Spring Boot, Hibernate и Oracle Database. 
 
+#### Стек:
+
+<small>
+
+* **Java SE 11** - Платформа Java, стандартная версия 11 [Java SE 11 Archive Downloads](https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html "https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html");
+* **Spring Boot** - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
+* **Spring Web** - включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
+* **Spring Data JPA** - позволяет работать с SQL с помощью Java Persistence API, используя Spring Data и Hibernate;
+* **Lombok** - библиотека для сокращения написания стандартного кода на java (геттеры, сеттеры и т.д.);
+* **OpenCSV** - парсер CSV-файлов;
+* **Oracle Data Base** - используемая БД [Oracle Database Express Edition (XE) download](https://www.oracle.com/database/technologies/xe-downloads.html "https://www.oracle.com/database/technologies/xe-downloads.html");
+* **Maven** - фреймворк для автоматизации сборки проектов на основе описания их структуры в файлах на языке POM (англ. Project Object Model).
+
+</small>
+
 ### Функционал.
 
-### 1. Это CRUD приложение, которое умеет создавать (CREATE), читать (READ), изменять (UPDATE) и удалять (DELETE) информацию в Базе данных.
-REST API предоставляет следующие ендпоинты:
+<details><summary>1. Это приложение предоставляет REST API для работы с Базой данных (БД).</summary>
+<blockquote>
+
+Оно умеет создавать (CREATE), читать (READ), изменять (UPDATE) и удалять (DELETE) информацию в БД.
+
+Эндпоинты:
 
    ```
    GET http://localhost:8081/listProducts получить все продукты  
@@ -16,7 +35,11 @@ REST API предоставляет следующие ендпоинты:
    ```
 _Формат данных ответа в json._
 
-### 2. Приложение умеет автоматически загружать данные из *CSV-файла*.
+</blockquote>
+</details>
+
+<details><summary>2. Приложение умеет автоматически загружать данные из CSV-файла.</summary>
+<blockquote>
 
 Путь директории с файлами настраивается в конфигурационном файле приложения:
 
@@ -25,8 +48,6 @@ _Формат данных ответа в json._
 Загрузка файла стартует при появлении нового файла в указанной директории:
 
         upload.file = LoadIntoDB.csv
-
-<details><summary>Пример формата данных CSV-файла ...</summary>
 
 ```csv
 product_id, product_name, price_id, price, price_date
@@ -39,30 +60,22 @@ product_id, product_name, price_id, price, price_date
 3,product3,7,3.33,2020-12-01
 4,product4,8,100.10,2020-12-01
 ```
+
+</blockquote>
 </details>
 
-### 3. Приложение умеет вести логирование.
+<details><summary>3. Приложение умеет вести логирование.</summary>
+<blockquote>
 
 В логфайле `LoadIntoDB.log` отмечается факт старта обработки файла и результат с количеством обработанных записей (товаров и цен).
 
-### Стек:
-
-<small>
-
- * **Java SE 11** - Платформа Java, стандартная версия 11 [Java SE 11 Archive Downloads](https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html "https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html");
- * **Spring Boot** - инструмент фреймворка Spring для написания приложений с минимальной конфигурацией (имеет встроенный контейнер сервлетов Tomcat по умолчанию);
- * **Spring Web** - включает в себя все настройки Spring MVC и позволяет писать REST API без дополнительных настроек;
- * **Spring Data JPA** - позволяет работать с SQL с помощью Java Persistence API, используя Spring Data и Hibernate;
- * **Lombok** - библиотека для сокращения написания стандартного кода на java (геттеры, сеттеры и т.д.);
- * **OpenCSV** - парсер CSV-файлов;
- * **Oracle Data Base** - используемая БД [Oracle Database Express Edition (XE) download](https://www.oracle.com/database/technologies/xe-downloads.html "https://www.oracle.com/database/technologies/xe-downloads.html");
- * **Maven** - фреймворк для автоматизации сборки проектов на основе описания их структуры в файлах на языке POM (англ. Project Object Model).
-
-</small>
+</blockquote>
+</details>
 
 ### Хранение данных.
 
-Структура таблиц.
+<details><summary>Структура таблиц Базы данных</summary>
+<blockquote>
 
 ```
 1. Таблица товар. Хранит название товара.
@@ -114,15 +127,26 @@ SELECT *
 
 _Также прилагаю файл со скриптами для создания необходимых сущностей._ [ScriptDB.sql](https://github.com/aykononov/springboot-hibernate-oracle-opencsv/blob/main/ScriptDB.sql)
 
+</blockquote>
+</details>
 
-### Сборка исполняемого jar-файла.
+### Сборка.
 
-Используйте **shell**, перейдите в корневой каталог проекта (*где находится файл pom.xml*) и введите:
+<details><summary>Сборка исполняемого jar-файла.</summary>
+<blockquote>
+
+Используйте **shell**, перейдите в корневой каталог проекта (*где находится файл pom.xml*) и введите команды:
 
     mvn clean package  
     cd target  
 
-### Запуск приложения.
+</blockquote>
+</details>
+
+### Запуск.
+
+<details><summary>Запуск и проверка работы приложения.</summary>
+<blockquote>
 
 В командной строке выполните команду:  
     
@@ -216,3 +240,6 @@ Cкопируйте файл `LoadIntoDB.csv` в директорию `D:/upload
 </details>
 
 * **GET** `http://localhost:8081/listProducts` - получить все продукты  
+
+</blockquote>
+</details>
