@@ -1,4 +1,4 @@
-## Создание Spring Boot REST API с помощью Java.
+## Spring Boot REST API на Java.
 ### Java SE + Spring Boot + Hibernate + Oracle Database 
 
 ### Стек:
