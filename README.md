@@ -18,7 +18,7 @@
 
 ### Функционал.
 
-<details><summary>1. Это приложение предоставляет REST API для работы с Базой данных (БД).</summary>
+<details><summary>1. Это приложение предоставляет REST API для работы с Базой данных (Oracle).</summary>
 <blockquote>
 
 Оно умеет создавать (CREATE), читать (READ), изменять (UPDATE) и удалять (DELETE) информацию в БД.
